@@ -64,9 +64,11 @@ td { vertical-align: top; }
 
 .chromeframe { margin: 0.2em 0; background: #ccc; color: black; padding: 0.2em 0; }
 
+/* Author: Connor McSheffrey */
+
 body {
   background: #000;
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 
 #main {
@@ -81,25 +83,24 @@ body {
 }
 
 #main img {
-  -webkit-filter: blur(5px);
+  /*-webkit-filter: blur(5px);*/
 /*  width: 100%;*/
+}
+
+#main .photo-container img {
+       -o-transition: all 1s ease-in-out;
+      -ms-transition: all 1s ease-in-out;
+     -moz-transition: all 1s ease-in-out;
+  -webkit-transition: all 1s ease-in-out;
+          transition: all 1s ease-in-out;
 }
 
 #main img {
   display: inline-block;
   float: left;
-  /*-webkit-transform: rotateY(-180deg);
-     -moz-transform: rotateY(-180deg);*/
-       -o-transition: all .4s ease-in-out;
-      -ms-transition: all .4s ease-in-out;
-     -moz-transition: all .4s ease-in-out;
-  -webkit-transition: all .4s ease-in-out;
-          transition: all .4s ease-in-out;
-  z-index: 1;
-/*  width: 25%;*/
 }
 
-#main .flip {
+#main .photo-container.flip img {
   -webkit-transform: rotateY(180deg);
      -moz-transform: rotateY(180deg);
 }
