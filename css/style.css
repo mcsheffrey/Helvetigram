@@ -102,17 +102,26 @@ body {
   width: 100%;
 }
 
-#main img {
-  float: left;
-  display: inline-block;
-}
 
 #main img {
   /*-webkit-filter: blur(5px);*/
 /*  width: 100%;*/
 }
 
-#main .photo-container img {
+#main .photo-container{
+  display: inline-block;
+  float: left;
+  position: relative;
+}
+
+#main img {
+  background: #000;
+  display: inline-block;
+  float: left;
+      -moz-transform-style: preserve-3d;
+  --webkit-transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  position: absolute;
        -o-transition: all 1s ease-in-out;
       -ms-transition: all 1s ease-in-out;
      -moz-transition: all 1s ease-in-out;
@@ -120,20 +129,28 @@ body {
           transition: all 1s ease-in-out;
 }
 
-#main img {
-  display: inline-block;
-  float: left;
+#main .photo-container .front {
+   -webkit-transform: rotateY(0deg);
+     -moz-transform: rotateY(0deg);
+  z-index: 2;
 }
 
-#main .photo-container.flip img {
+#main .photo-container .back {
+  -webkit-transform: rotateY(-180deg);
+     -moz-transform: rotateY(-180deg);
+  z-index: 1;
+}
+
+#main .photo-container.flip .front {
   -webkit-transform: rotateY(180deg);
      -moz-transform: rotateY(180deg);
+  z-index: 1;
 }
 
-.back {
-  background: #000;
-  height: 100%;
-  width: 100%;
+#main .photo-container.flip .back {
+  -webkit-transform: rotateY(0deg);
+     -moz-transform: rotateY(0deg);
+  z-index: 2;
 }
 
 .spinner {
@@ -158,7 +175,7 @@ body {
   text-align: center;
   top: 0;
   width: 100%;
-  z-index: 1;
+  z-index: 2;
 }
 
 .signup {

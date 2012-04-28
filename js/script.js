@@ -11,8 +11,9 @@
 			this.template = config.template;
 			this.container = config.container;
 			this.photosWidth = config.photosWidth;
-			this.photos = {};
+			this.photos = [];
 			this.count = 0;
+			this.looped = true;
 
 			// set the img to have fixed dimensions, we'll switch this to percentages once the page loads
 			this.photoDimension = $('#main').width()/this.photosWidth;
@@ -22,8 +23,6 @@
 
 			// Number of photos we want to load to fill the window
 			this.photoLimit = this.photosHeight*this.photosWidth;
-
-			console.log(this.photoLimit);
 			
 			this.refresh();
 		},
@@ -52,35 +51,40 @@
 
 		// Map results to photos array
 		mapGrams: function(results) {
-			// Temp limit 24
 
 			var self = this;
 
 			if (results.meta.code === 200 ) {
 
-				if (self.photos.length < this.photoLimit) {
+					function photo(front,back) {
+						this.front = front;
+						this.back = back;
+					}
+					
 
-					console.log(this.photoLimit);
-
-					// Is there a better way to do this?
-					for (var i = 0; i < this.photoLimit; i++) {
-						self.photos["0"] = results.data[i];
+					for (var i = 0; i < results.data.length; i++) {
+						console.log(self.count);
+						
+						self.photos.push(new photo(results.data[i], results.data[i+1]));
+						i++
 					};
 
-					self.count++;
-
 					console.log(self.photos);
-
-					self.refresh();
+					
+					console.log(self.photos.length);
+					console.log(self.photoLimit);
 					
 					
-				} else {
-					console.log(self.photos);
-					self.photos
-					self.buildFrag();
-					self.attachTemplate();
-					self.flip();
-				}
+
+					// if (self.photos.length < self.photoLimit) {
+
+
+					// 	self.refresh();
+					// } else {
+						self.buildFrag();
+						self.attachTemplate();
+						self.flip();
+					// }
 
 			} else {
 				console.log('no results');
@@ -130,12 +134,17 @@
 		},
 
 		// build handlebars template grams
-		buildFrag: function(results) {
+		buildFrag: function() {
 			var self = this;
 
+			console.log(self.photos);
+			
+
 			this.grams = $.map( self.photos, function( gram, index ) {
+				
 					return {
-						image: gram.images.low_resolution.url,
+						front: gram.front.images.low_resolution.url,
+						back: gram.back.images.low_resolution.url,
 						id: gram.id,
 						height: self.photoDimension,
 						width: self.photoDimension,
@@ -150,7 +159,7 @@
 		template: $('#photos-template').html(),
 		container: $('#main'),
 		clientID: '5ee7e77d7b0b441f9cd307a5f30c92bb',
-		photosWidth: 6
+		photosWidth: 4
 	});
 
 })();

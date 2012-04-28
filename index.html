@@ -19,7 +19,10 @@
   <div role="main" id="main">
     <script id="photos-template" type="text/x-handlebars-template">
       {{#each this}}
-        <img class="{{stripeClass}}" data-original="{{image}}" src="img/blank.gif" id="{{id}}" height="{{height}}" width="{{width}}" />
+      <div class="photo-container" style="height: {{height}}px; width:{{width}}px;" >
+        <img class="front" data-original="{{front}}" src="img/blank.gif" id="{{id}}" height="{{height}}" width="{{width}}" />
+        <img class="back" data-original="{{back}}" src="img/blank.gif" id="{{id}}" height="{{height}}" width="{{width}}" />
+      </div>
       {{/each}}
     </script>
   </div>
